@@ -35,3 +35,23 @@ body {
   color: var(--foreground);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+@layer base {
+  :root {
+    --carousel-z: 450px;
+  }
+}
+
+.perspective-environment {
+  perspective: 2000px;
+  perspective-origin: 50% 50%;
+}
+
+.reflection-mask {
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";

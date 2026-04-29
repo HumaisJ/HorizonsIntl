@@ -19,9 +19,9 @@ export default function Navbar() {
         {/* Brand Logo */}
         <div className="flex items-center gap-2">
           <Image
-            src="/images/horizonsicon.png"
+            src="/images/horizons.png"
             alt="Horizons Intl logo"
-            width={32}
+            width={102}
             height={32}
             className="h-10 w-20 rounded-lg object-cover"
             priority
