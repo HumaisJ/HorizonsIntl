@@ -26,7 +26,7 @@ export default function Navbar() {
             className="h-10 w-20 rounded-lg object-cover"
             priority
           />
-          <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white">
+          <span className="text-xl font-black tracking-tighter text-brand-blue dark:text-white">
             HORIZONS <span className="text-brand-orange">INTL</span>
           </span>
         </div>

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Hero from "./(sections)/Hero";
 import MissionVision from "./(sections)/MissionVision";
 import ShowroomHighlights from "./(sections)/ShowroomHighlights";
