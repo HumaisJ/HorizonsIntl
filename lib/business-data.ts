@@ -1,4 +1,4 @@
-import { Car, Monitor, Settings, Globe, Wrench, Shield } from 'lucide-react';
+import { Car, Monitor, Settings, Globe, Wrench, Shield, Shirt } from 'lucide-react';
 
 export const businessSections = [
   {
@@ -26,7 +26,7 @@ export const businessSections = [
     color: "#F5A623",
     intro: "Welcome to Horizons Engineering Services & Mechanical Design",
     content: "The consultancy team at Horizons International has a passion for ideas and creative solutions. Founded in Pakistan in 1995, we adopt the latest treatment technologies.",
-    link: "/coming-soon"
+    link: "/engineering"
   },
   {
     id: "trading",
@@ -35,16 +35,16 @@ export const businessSections = [
     color: "#2DA7D7",
     intro: "Welcome to Horizons Trade Department",
     content: "Horizons International is a multi-solutions provider trading company dealing in technology-oriented components and serving worldwide customers.",
-    link: "/coming-soon"
+    link: "/trading"
   },
   {
-    id: "auto-care",
-    title: "Auto Care",
-    icon: Wrench,
-    color: "#CFCFCF",
-    intro: "Professional Vehicle Maintenance & Care",
-    content: "Comprehensive automotive care from certified technicians. We offer premium maintenance and repair services using modern diagnostic equipment.",
-    link: "/coming-soon"
+    id: "vogue-zone",
+    title: "Vogue Zone",
+    icon: Shirt,
+    color: "#E2E2E2", // Refined silver-grey to match the minimalist fashion aesthetic
+    intro: "Curated Premium Apparel & Contemporary Fashion",
+    content: "Discover carefully selected, high-quality contemporary clothing designed to elevate your everyday style. From modern streetwear staples to classic tailored essentials, we bring you exceptional garments that balance timeless elegance with bold, current trends.",
+    link: "/vogue-zone"
   },
   {
     id: "security",
@@ -53,6 +53,6 @@ export const businessSections = [
     color: "#2DA7D7",
     intro: "Protecting Your Future with Advanced Security",
     content: "Innovative security systems for the modern era. From intelligent surveillance to comprehensive protection services, we provide peace of mind.",
-    link: "/coming-soon"
+    link: "/security"
   }
 ];

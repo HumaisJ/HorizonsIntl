@@ -26,7 +26,7 @@ export default function OneStarNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 2. Prevent scroll when mobile menu is open
+  // 2. Prevent background scroll when mobile menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -38,39 +38,40 @@ export default function OneStarNavbar() {
   return (
     <nav 
       className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-lg border-b border-zinc-200 dark:border-zinc-800" 
+        scrolled || isOpen
+          ? "bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md shadow-lg border-b border-zinc-200 dark:border-zinc-800" 
           : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        
         {/* Logo Section */}
-<Link href="/one-star" className="flex items-center gap-0.5 group z-[100]">
-  <div className="relative w-12 h-20 transition-transform group-hover:scale-110 duration-300">
-    <Image
-      src="/images/logo.png" // Path to your file in the public folder
-      alt="One Star Trading Logo"
-      fill
-      className="object-contain"
-      priority // Ensures the logo loads immediately
-    />
-  </div>
-  <span className="font-black text-2xl tracking-tighter text-zinc-900 dark:text-white uppercase">
-    One <span className="text-red-600">Star</span>
-  </span>
-</Link>
+        <Link href="/one-star" className="flex items-center gap-0.5 group z-[100]" onClick={() => setIsOpen(false)}>
+          <div className="relative w-12 h-20 transition-transform group-hover:scale-110 duration-300">
+            <Image
+              src="/images/logo.png"
+              alt="One Star Trading Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+          <span className="font-black text-2xl tracking-tighter text-zinc-900 dark:text-white uppercase">
+            One <span className="text-red-600">Star</span>
+          </span>
+        </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation - Kept exact behaviors intact */}
         <div className="hidden md:flex items-center gap-8">
-  {navItems.map((item) => (
-    <Link 
-      key={item.label}
-      href={item.href} // CHANGE: Changed from "/one-star/admin/login" to item.href
-      className="font-bold uppercase tracking-widest text-[11px] hover:text-red-600 transition-colors text-zinc-600 dark:text-zinc-300"
-    >
-      {item.label}
-    </Link>
-  ))}
+          {navItems.map((item) => (
+            <Link 
+              key={item.label}
+              href={item.href}
+              className="font-bold uppercase tracking-widest text-[11px] hover:text-red-600 transition-colors text-zinc-600 dark:text-zinc-300"
+            >
+              {item.label}
+            </Link>
+          ))}
           
           <Link 
             href="/one-star/admin/login" 
@@ -79,7 +80,6 @@ export default function OneStarNavbar() {
             <LayoutDashboard size={14} /> Admin
           </Link>
           
-          {/* Theme Toggle - Only shows once mounted to prevent errors */}
           {mounted && (
             <button 
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -91,48 +91,53 @@ export default function OneStarNavbar() {
           )}
         </div>
 
-        {/* Mobile Toggle Button */}
-        <button 
-          className="md:hidden z-[110] text-zinc-900 dark:text-white" 
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        {/* Mobile Action Controls Group - Places toggle and hamburger side-by-side cleanly */}
+        <div className="flex md:hidden items-center gap-2 z-[110]">
+          {mounted && (
+            <button 
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2.5 rounded-full text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+              aria-label="Toggle Theme"
+            >
+              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+          )}
+
+          <button 
+            className="p-2.5 text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-lg transition-colors" 
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 ... md:hidden ${isOpen ? "translate-y-0" : "-translate-y-full"}`}>
-  {navItems.map((item) => (
-    <Link 
-      key={item.label} 
-      href={item.href} // CHANGE: Changed from "/one-star/admin/login" to item.href
-      className="font-black uppercase text-3xl tracking-tighter hover:text-red-600 transition-colors"
-      onClick={() => setIsOpen(false)}
-    >
-      {item.label}
-    </Link>
-  ))}
-        <Link 
-          key="/one-star/admin/login"
-          href="/one-star/admin/login" 
-          className="font-black uppercase text-3xl tracking-tighter text-blue-500 hover:text-blue-400 transition-colors"
-          onClick={() => setIsOpen(false)}
-        >
-          Admin Portal
-        </Link>
-        
-        {mounted && (
-          <button 
-            onClick={() => {
-              setTheme(theme === "dark" ? "light" : "dark");
-              setIsOpen(false);
-            }}
-            className="mt-4 flex items-center gap-2 font-bold uppercase tracking-widest text-xs text-zinc-400"
-          >
-            Switch to {theme === "dark" ? "Light" : "Dark"} Mode
-          </button>
-        )}
-      </div>
+      {/* Clean Mobile Menu Dropdown Panel (Replaces broken text string overlay blocks) */}
+      {isOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-200 dark:border-zinc-800 shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
+          <div className="flex flex-col px-6 py-4 divide-y divide-zinc-100 dark:divide-zinc-800/60">
+            {navItems.map((item) => (
+              <Link 
+                key={item.label} 
+                href={item.href}
+                className="py-4 font-bold text-sm uppercase tracking-wider text-zinc-800 dark:text-zinc-200 hover:text-red-600 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            
+            <Link 
+              href="/one-star/admin/login" 
+              className="py-4 flex items-center gap-2 font-bold text-sm uppercase tracking-wider text-blue-500 hover:text-blue-400 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <LayoutDashboard size={16} /> Admin Portal
+            </Link>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }

@@ -1,6 +1,7 @@
 import { businessSections } from '@/lib/business-data';
 // Remove Navbar and Footer imports from here
 import { companyInfo } from '@/lib/company-info';
+import Link from "next/link";
 
 export default function HomePage() {
   return (
@@ -29,14 +30,16 @@ export default function HomePage() {
 
       {/* 2. NAVIGATION GRID */}
       <div className="max-w-6xl mx-auto w-full px-6 -mt-40 relative z-30 mb-24">
+        
+        {/* ACTIVE VENTURES GRID: Restored to slice(0, 2) to only show One Star & IT Solutions */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {businessSections.slice(0, 2).map((section) => {
             const Icon = section.icon;
             return (
-              <a 
+              <Link 
                 key={section.id} 
-                href={`#${section.id}`}
-                className="group relative overflow-hidden p-10 rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl transition-all duration-500 hover:border-brand-orange shadow-2xl h-64 flex flex-col justify-end"
+                href={section.link}
+                className="group relative overflow-hidden p-10 rounded-3xl border border-white/10 bg-slate-900/60 backdrop-blur-2xl transition-all duration-500 hover:border-brand-orange shadow-2xl h-64 flex flex-col justify-end cursor-pointer"
               >
                 <div className="absolute top-8 left-8 p-4 rounded-2xl bg-brand-blue/20 group-hover:bg-brand-orange/20 transition-colors">
                    <Icon className="w-8 h-8 text-white" />
@@ -45,9 +48,11 @@ export default function HomePage() {
                   <span className="text-white font-black text-3xl uppercase tracking-tighter block">
                     {section.title}
                   </span>
-                  <p className="text-slate-300 mt-2 line-clamp-1 font-medium">{section.intro}</p>
+                  <p className="text-slate-300 mt-2 line-clamp-2 font-medium text-xs leading-relaxed">
+                    {section.intro}
+                  </p>
                 </div>
-              </a>
+              </Link>
             );
           })}
         </div>
@@ -59,9 +64,41 @@ export default function HomePage() {
           </h3>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* LOWER DECK GRID: Handles Engineering, Security, Trading, and now Vogue Zone as active live internal routes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {businessSections.slice(2).map((section) => {
             const Icon = section.icon;
+            
+            // Dynamic check evaluates true for all your developed operational sub-brands now
+            const isLive = 
+              section.id === "engineering" || 
+              section.id === "security" || 
+              section.id === "trading" ||
+              section.id === "vogue-zone"; 
+
+            if (isLive) {
+              return (
+                <Link
+                  key={section.id}
+                  href={section.link}
+                  className="group relative h-48 rounded-2xl bg-slate-900/80 backdrop-blur-md border border-white/10 overflow-hidden cursor-pointer shadow-xl flex flex-col justify-between p-6 transition-all duration-300 hover:border-brand-orange"
+                >
+                  <div className="p-3 rounded-xl bg-brand-orange/10 w-fit text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <div className="text-left">
+                    <span className="font-black text-sm uppercase tracking-tight text-white block line-clamp-2">
+                      {section.title}
+                    </span>
+                    <span className="text-brand-blue font-bold text-[9px] uppercase tracking-wider block mt-1">
+                      Coming Soon →
+                    </span>
+                  </div>
+                </Link>
+              );
+            }
+
+            // Fallback layout block for any remaining unbuilt components matching the dataset schema array bounds
             return (
               <div 
                 key={section.id}
@@ -69,13 +106,13 @@ export default function HomePage() {
               >
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-4 transition-all duration-500 group-hover:scale-110 group-hover:opacity-0">
                   <Icon className="w-7 h-7 mb-3 text-brand-blue" />
-                  <span className="font-bold text-[10px] uppercase text-center tracking-widest text-white/90">
+                  <span className="font-bold text-[10px] uppercase text-center tracking-widest text-white/90 line-clamp-2">
                     {section.title}
                   </span>
                 </div>
                 <div className="absolute inset-0 bg-brand-blue p-6 flex flex-col justify-center items-center text-center translate-y-full transition-transform duration-500 group-hover:translate-y-0">
                   <span className="text-white/60 font-black text-[9px] uppercase tracking-[0.2em] mb-2">Coming Soon</span>
-                  <p className="text-white text-[11px] leading-snug font-semibold">{section.intro}</p>
+                  <p className="text-white text-[11px] leading-snug font-semibold line-clamp-3">{section.intro}</p>
                 </div>
               </div>
             );
@@ -176,7 +213,6 @@ export default function HomePage() {
           </section>
         );
       })}
-      {/* Footer is now handled by layout.tsx - remove tag from here */}
     </main>
   );
 }
