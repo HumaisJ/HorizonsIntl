@@ -65,14 +65,13 @@ export default function HomePage() {
         </div>
 
         {/* LOWER DECK GRID: Handles Engineering, Security, Trading, and now Vogue Zone as active live internal routes */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {businessSections.slice(2).map((section) => {
             const Icon = section.icon;
             
             // Dynamic check evaluates true for all your developed operational sub-brands now
             const isLive = 
-              section.id === "engineering" || 
-              section.id === "security" || 
+              section.id === "engineering" ||
               section.id === "trading" ||
               section.id === "vogue-zone"; 
 

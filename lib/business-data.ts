@@ -17,7 +17,7 @@ export const businessSections = [
     color: "#2DA7D7",
     intro: "Welcome to Horizons Information Technology Solutions",
     content: "Our corporate objective is to become a technology powerhouse with offerings ranging from office solutions to turnkey systems and greenfield projects.",
-    link: "/coming-soon"
+    link: "/it-solutions"
   },
   {
     id: "engineering",
@@ -45,14 +45,5 @@ export const businessSections = [
     intro: "Curated Premium Apparel & Contemporary Fashion",
     content: "Discover carefully selected, high-quality contemporary clothing designed to elevate your everyday style. From modern streetwear staples to classic tailored essentials, we bring you exceptional garments that balance timeless elegance with bold, current trends.",
     link: "/vogue-zone"
-  },
-  {
-    id: "security",
-    title: "Security Solutions & Services",
-    icon: Shield,
-    color: "#2DA7D7",
-    intro: "Protecting Your Future with Advanced Security",
-    content: "Innovative security systems for the modern era. From intelligent surveillance to comprehensive protection services, we provide peace of mind.",
-    link: "/security"
   }
 ];
